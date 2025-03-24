@@ -9,12 +9,17 @@ namespace WingtipToys.Models
 {
     public class ProductContext : DbContext
     {
-        public ProductContext() : base("WingtipToys")
+        // access to all Entity Framework functionality 
+
+        public ProductContext() : base("WingtipToys") // The name of the connection string
         {
         }
 
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<CartItem> ShoppingCartItems { get; set; }
+
     }
 }

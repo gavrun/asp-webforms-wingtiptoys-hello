@@ -8,13 +8,14 @@ namespace WingtipToys.Models
 {
     public class Product
     {
-        [ScaffoldColumn(false)]
-        public int ProductID { get; set; }
+        // automatically generated UI-forms (scaffolded views), false means that the property will not be displayed
+        [ScaffoldColumn(false)] 
+        public int ProductID { get; set; } // Primary Key
 
         [Required, StringLength(100), Display(Name = "Name")]
         public string ProductName { get; set; }
 
-        [Required, StringLength(10000), Display(Name = "Product Description"), DataType(DataType.MultilineText)]
+        [Required, StringLength(10000), Display(Name = "Product Description"), DataType(DataType.MultilineText)] 
         public string Description { get; set; }
 
         public string ImagePath { get; set; }
@@ -24,6 +25,7 @@ namespace WingtipToys.Models
 
         public int? CategoryID { get; set; }
 
-        public virtual Category Category { get; set; }
+        // Navigation property
+        public virtual Category Category { get; set; } // lazy loading
     }
 }
