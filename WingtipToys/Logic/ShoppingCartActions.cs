@@ -219,6 +219,57 @@ namespace WingtipToys.Logic
             return count ?? 0;
         }
 
+        // not implemented, newer Basic User Logic logic already present
+
+        //public void MigrateCart(string cartId, string userName)
+        //{
+        //    var shoppingCart = _db.ShoppingCartItems.Where(c => c.CartId == cartId);
+        //    foreach (CartItem item in shoppingCart)
+        //    {
+        //        item.CartId = userName;
+        //    }
+        //    HttpContext.Current.Session[CartSessionKey] = userName;
+        //    _db.SaveChanges();
+        //}
+
+
+        // PayPal Express Checkout not implemented
+
+        // dummy order
+        public int CreateOrder(Order orderTemplate)
+        {
+            string username = HttpContext.Current.User.Identity.Name;
+
+            using (var _db = new ProductContext())
+            {
+                var cartItems = GetCartItems();
+
+                orderTemplate.Username = username;
+                orderTemplate.OrderDate = DateTime.Now;
+                orderTemplate.Total = GetTotal();
+                orderTemplate.OrderDetails = new List<OrderDetail>();
+
+                foreach (var item in cartItems)
+                {
+                    var detail = new OrderDetail
+                    {
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.Product.UnitPrice,
+                        Username = username
+                    };
+
+                    orderTemplate.OrderDetails.Add(detail);
+                }
+
+                _db.Orders.Add(orderTemplate);
+                _db.SaveChanges();
+
+                return orderTemplate.OrderId; // just in case
+            }
+        }
+
+
         // 
         public struct ShoppingCartUpdates
         {

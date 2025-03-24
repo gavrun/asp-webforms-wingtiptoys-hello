@@ -43,6 +43,9 @@
             <td>
                 <!--Checkout Placeholder -->
             </td>
+            <td>
+                <asp:Button ID="CheckoutButton" runat="server" Text="Checkout" OnClick="CheckoutButton_Click" />
+            </td>
         </tr>
     </table>
 </asp:Content>

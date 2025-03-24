@@ -94,5 +94,32 @@ namespace WingtipToys
         {
             UpdateCartItems();
         }
+
+        protected void CheckoutButton_Click(object sender, EventArgs e)
+        {
+            // PayPal Express Checkout not implemented
+
+            var cart = new ShoppingCartActions();
+
+            // dummy order instead of [ShippingFormDummy.aspx]
+            var order = new Order
+            {
+                FirstName = "Test",
+                LastName = "User",
+                Address = "123 Test Street",
+                City = "Testville",
+                State = "TS",
+                PostalCode = "12345",
+                Country = "Testland",
+                Phone = "1234567890",
+                Email = "abc@xyz.com",
+                HasBeenShipped = false
+            };
+
+            // dummy order
+            cart.CreateOrder(order);
+
+            Response.Redirect("~/Checkout/ThankYou.aspx");
+        }
     }
 }
